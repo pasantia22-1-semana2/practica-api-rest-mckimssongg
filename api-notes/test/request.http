@@ -1,0 +1,9 @@
+#prueba de servidor
+
+GET http://127.0.0.1:3000/api/v1/home
+
+
+####
+
+GET http://127.0.0.1:3000/api/v1/note/2
+
