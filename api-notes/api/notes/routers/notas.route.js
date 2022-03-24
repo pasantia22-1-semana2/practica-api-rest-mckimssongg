@@ -1,31 +1,21 @@
 import express from 'express';
+import { NoteController } from '../controllers/note.ctl.js';
 
 
+const noteController = new NoteController();
 const routerNote = express.Router();
 
 // rutas para los modulos
 
 
 // ruta para obtener todas las notas
-routerNote.get('/', (req,res)=>{
-    res.json({
-        message:"Estas en la ruta get"
-    })
-})
+routerNote.get('/', noteController.getAllNotes)
 
 // ruta para obtener una sola nota 
-routerNote.get('/:id', (req, res)=>{
-    res.json({
-        message:"Estas en la ruta get de una sola nota"
-    })
-})
+routerNote.get('/:id', noteController.getOneNote)
 
 //ruta para hacer post de una nota
-routerNote.post('/', (req, res)=>{
-    res.json({
-        message:"Estas en la ruta post de una sola nota"
-    })
-})
+routerNote.post('/', noteController.createNewNote)
 
 //ruta para actualizar notas
 routerNote.put('/:id', (req, res)=>{

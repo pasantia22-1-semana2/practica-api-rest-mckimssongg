@@ -3,7 +3,25 @@
 GET http://127.0.0.1:3000/api/v1/home
 
 
+
 ####
 
-GET http://127.0.0.1:3000/api/v1/note/2
+GET http://127.0.0.1:3000/api/v1/note/
 
+
+####
+
+GET http://127.0.0.1:3000/api/v1/note/3
+
+
+####
+
+POST http://127.0.0.1:3000/api/v1/note/
+Content-Type: application/json
+
+
+{
+    "title": "papas",
+    "content" : "Las papas son papas",
+    "status" : true
+}
