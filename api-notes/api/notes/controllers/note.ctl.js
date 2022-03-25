@@ -1,5 +1,5 @@
 import {Note, NoteModels} from '../models/note.models.js';
-
+import{response} from "../../../response/response.js"
 
 const noteModel = new NoteModels();
 
@@ -9,19 +9,34 @@ export class NoteController{
 
   //metodo para responder la ruta "obtener todas las notas"
   getAllNotes(req, res){
-    let allNotes = noteModel.all();
-    res.json(allNotes)
+    try{
+      let allNotes = noteModel.all();
+      // let dataJson = JSON.parse(allNotes)
+      response.succes(req,res,allNotes,200);
+    }
+    catch(e){
+      // console.log(e);
+      response.error(req,res, null, 500)
+    }
   }
 
   //crear una nueva nota
   async createNewNote(req,res){
     let {title,content,status} = req.body
-    const newNote = new Note(title,content,status);
-    let result = await noteModel.save(newNote);
-    if ( result >0 ){
-      return res.json({message:"Se creo una nueva nota"})
+    try{
+      const newNote = new Note(title,content,status);
+      let result = await noteModel.save(newNote);
+      if ( result === 0 ){
+        let message = 'No se ha creado la nota'
+        response.error(req,res,message,500)
+      }else{
+        let messageOk = 'Se ha creado una nueva nota'
+        response.succes(req,res,messageOk,200)
+      }
+    }catch(e){
+      // console.log(e)
+      response.error(req,res,null,500)
     }
-    return res.json({message:"Error"})
   }
 
   getOneNote(req, res){

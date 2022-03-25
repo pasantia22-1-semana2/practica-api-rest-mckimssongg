@@ -1,4 +1,4 @@
-const response={
+export const response={
     succes:(req, res,message,status)=>{
         let statusCode = status || 200;   //recibimos los datos en variables
         let data= message || '';
