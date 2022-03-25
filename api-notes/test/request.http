@@ -11,6 +11,14 @@ GET http://127.0.0.1:3000/api/v1/note/
 
 ####
 
+GET http://127.0.0.1:3000/api/v1/note/4
+
+####
+
+GET http://127.0.0.1:3000/api/v1/note/2
+
+####
+
 GET http://127.0.0.1:3000/api/v1/note/3
 
 
@@ -21,7 +29,24 @@ Content-Type: application/json
 
 
 {
-    "title": "papas",
-    "content" : "Las papas son papas",
+    "title": "peras",
+    "content" : "Las peras son peras",
     "status" : true
 }
+
+###
+
+DELETE http://127.0.0.1:3000/api/v1/note/3
+
+
+###
+
+PUT http://127.0.0.1:3000/api/v1/note/4
+Content-Type: application/json
+
+{
+    "title": "Actualizado",
+    "content" : "Todo actualizado y fresco",
+    "status" : true
+}
+

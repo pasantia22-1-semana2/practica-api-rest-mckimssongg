@@ -18,17 +18,9 @@ routerNote.get('/:id', noteController.getOneNote)
 routerNote.post('/', noteController.createNewNote)
 
 //ruta para actualizar notas
-routerNote.put('/:id', (req, res)=>{
-    res.json({
-        message:"Estas en la ruta put de una sola nota"
-    })
-})
+routerNote.put('/:id', noteController.updateNote)
 
 //ruta para eliminar una sola nota
-routerNote.delete('/:id', (req, res)=>{
-    res.json({
-        message:"Estas a delet de una nota"
-    })
-})
+routerNote.delete('/:id', noteController.deletNote)
 
 export default routerNote;

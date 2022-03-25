@@ -50,6 +50,7 @@ export class NoteModels{
     }
     writeJsonFile(data){
         let jsonData = JSON.stringify(data,null,'');
+        // console.log(jsonData)
         fs.writeFileSync(this._datPath,jsonData);
 
     }
@@ -76,17 +77,34 @@ export class NoteModels{
             return 0;
         }
     }
+
     all(){
         return this.readJsonFile();
     }
     
     findById(id){
         let items = this.readJsonFile()
-        return items.find((item)=> item.id == id)
+        return items.find((item)=> item._id == id)
     }
-
-
-    update(){
-
+    deleteByID(id){
+        // let note = this.findById(id);
+        let allNotes = this.readJsonFile()
+        // console.log(allNotes)
+        let index = allNotes.findIndex((x)=>x._id==id)
+        allNotes.splice(index, 1)
+        // console.log(allNotes)
+        this.writeJsonFile(allNotes)
+        return this.all() 
+    }
+    updateByID(id, title, content, status){
+        let notes = this.readJsonFile();
+        let nota = this.findById(id)
+        nota._title = title
+        nota._content = content
+        nota._status = status
+        let index = notes.findIndex((x)=>x._id==id)
+        notes[index]=nota
+        this.writeJsonFile(notes)
+        return this.all() 
     }
 }
