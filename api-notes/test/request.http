@@ -29,8 +29,8 @@ Content-Type: application/json
 
 
 {
-    "title": "peras",
-    "content" : "Las peras son peras",
+    "title": "uvas",
+    "content" : "Las uvas son uvas",
     "status" : true
 }
 

@@ -1,7 +1,26 @@
 // import { chalkStderr } from 'chalk'; // No se par que la puse
 import express from 'express';
-
 import routerNote from './notes/routers/notas.route.js' // rutas de la seccion de notas para hacer el crud
+import swaggerJsDoc from "swagger-jsdoc";   // para la documentacion con swagger
+import swaggerUI from 'swagger-ui-express';
+
+
+// object swagger 
+const swaggerSpec={
+    definition:{
+        openapi:"3.0.0",
+        info:{
+            title: "api-notes",
+            version: "1.0.0"
+        },
+        server:[
+            {
+                url: "http://localhost:3000"
+            }
+        ]
+    },
+    apis:[`api/notes/routers/*.js`]
+}
 
 
 // """"
@@ -25,7 +44,7 @@ export class Server{ //constructor del server del appi
       
   }
   initRoutes(){ //Para crear las rutas 
-
+    this._app.use("/api/v1/notes-doc/", swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
     this._app.use('/api/v1/user/', (req,res)=>{
         res.json({
             message:"Aca estaran las rutas de users"
