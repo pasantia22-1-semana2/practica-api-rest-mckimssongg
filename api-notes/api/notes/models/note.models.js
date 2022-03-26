@@ -70,7 +70,7 @@ export class NoteModels{
             note._id = this.generatePk()
             notes.push(note);
             await this.writeJsonFile(notes);
-            return note.id;
+            return note._id;
         }
         catch(e){
             console.log(e)

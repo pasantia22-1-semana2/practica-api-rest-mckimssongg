@@ -22,20 +22,26 @@ export class NoteController{
 
   //crear una nueva nota
   async createNewNote(req,res){
-    let {title,content,status} = req.body
-    try{
-      const newNote = new Note(title,content,status);
-      let result = await noteModel.save(newNote);
-      if ( result === 0 ){
-        let message = 'No se ha creado la nota'
-        response.error(req,res,message,500)
-      }else{
-        let messageOk = 'Se ha creado una nueva nota'
-        response.succes(req,res,messageOk,200)
+    let {title,content,status} = req.body;
+    if(title !== undefined && content !== undefined && status !== undefined){
+      try {
+        const newNote = new Note(title,content,status);
+        let result =  await noteModel.save(newNote);
+        if(result === 0){
+          let message="No se creo la nota";
+          response.error(req,res,message,500)
+        }else{
+          let messageOk = "Se ha creado una nueva nota"; 
+          response.succes(req,res,messageOk,200)
+        }
+        
+      } catch (error) {
+        console.log(error)
+        response.error(req,res,null,500); 
       }
-    }catch(e){
-      // console.log(e)
-      response.error(req,res,null,500)
+    }else{
+      let messageError="complete todos los datos";
+      response.error(req,res,messageError,500)
     }
   }
 
@@ -43,7 +49,12 @@ export class NoteController{
     const id = req.params.id;
     // console.log(id)
     let oneNote = noteModel.findById(id);
-    res.json(oneNote)
+    if (oneNote){
+      response.succes(req,res,oneNote,200)
+    }else{
+      let messageNotFound="la nota no existe";
+      response.error(req,res,messageNotFound,404)
+    }
   }
 
   deletNote(req,res){
@@ -51,13 +62,13 @@ export class NoteController{
     // console.log(id + "este es el id a eliminar")
     let notes = noteModel.deleteByID(id)
     // console.log('nuevas notas' + notes)
-    res.json(notes)
+    response.succes(req,res,notes,200)
   }
   updateNote(req, res){
     const id = req.params.id;
     let {title,content,status} = req.body
     let notes = noteModel.updateByID(id, title,content,status);
     // console.log(notes)
-    res.json(notes)
+    response.succes(req,res,notes,200)
 }
 }
